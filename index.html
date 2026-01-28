@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOJO Framework - Living Organism Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            sticky: top;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        header h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 5rem 0;
+            color: #2c3e50;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        section {
+            background: white;
+            margin: 3rem 0;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        section h3 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h4 {
+            color: #667eea;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .philosophy {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .philosophy h3 {
+            border-bottom-color: white;
+            color: white;
+        }
+        
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .philosophy-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .philosophy-item h4 {
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+        
+        .philosophy-item p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .use-cases {
+            background: white;
+        }
+        
+        .use-case-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+        
+        .use-case-list li {
+            padding: 1rem;
+            margin: 0.8rem 0;
+            background: #f8f9fa;
+            border-left: 4px solid #764ba2;
+            border-radius: 4px;
+        }
+        
+        .use-case-list strong {
+            color: #764ba2;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #888;
+            margin-top: 3rem;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            section {
+                padding: 2rem 1.5rem;
+            }
+            
+            section h3 {
+                font-size: 1.5rem;
+            }
+            
+            header h1 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>DOJO Framework</h1>
+            <p>Living Organism Builder</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <h2>DOJO Framework</h2>
+            <p>Buduj autonomiczne agenty, self-healing systemy i inteligentne aplikacje bez pisania kodu.</p>
+            <a href="https://github.com/dojo-framework/dojo" class="cta-button">Dowiedz się więcej</a>
+        </section>
+        
+        <section>
+            <h3>Co to DOJO?</h3>
+            <p>DOJO to nowoczesny framework do budowania żywych organizmów cyfrowych. Zamiast statycznych aplikacji, tworzysz systemy, które uczą się, adaptują i samonaprawiają.</p>
+            <p>DOJO opiera się na trzech filarach:</p>
+            <div class="features">
+                <div class="feature-card">
+                    <h4>Autonomiczne Agenty</h4>
+                    <p>Niezależne jednostki zdolne do podejmowania decyzji, wykonywania zadań i współpracy z innymi agentami.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Self-Healing</h4>
+                    <p>System automatycznie identyfikuje i naprawia błędy, utrzymując wysoką dostępność i niezawodność.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Budowanie Bez Kodu</h4>
+                    <p>Intuicyjny interfejs graficzny pozwala budować złożone logiki bez konieczności pisania kodu.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="philosophy">
+            <h3>Filozofia DOJO</h3>
+            <p>Framework opiera się na koncepcji organów odpowiedzialnych za różne aspekty systemu.</p>
+            <div class="philosophy-grid">
+                <div class="philosophy-item">
+                    <h4>Organy (Workers)</h4>
+                    <p>Niezależne jednostki wykonawcze. Każdy organ ma jasno określoną funkcję, może się autonomicznie wykonywać i współpracować z innymi.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h4>Narzędzia (Tools)</h4>
+                    <p>Specjalizowane funkcje dostępne dla organów. Tools są wielokrotnie używalne i stanowią interfejs do zewnętrznych systemów.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h4>Heartbeat</h4>
+                    <p>Pulsujący system, który budzi organy do życia. Heartbeat zarządza harmonogramem i zapewnia ciągłość działania systemu.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Przykłady Użycia</h3>
+            <p>DOJO sprawdza się w wielu scenariuszach:</p>
+            <ul class="use-case-list">
+                <li><strong>Automatyzacja Biznesu:</strong> Twórz przepływy pracy, które działają 24/7 bez interwencji człowieka.</li>
+                <li><strong>Analiza i Raportowanie:</strong> Autonomiczne agenty zbierają, przetwarzają i raportują dane w czasie rzeczywistym.</li>
+                <li><strong>Customer Support:</strong> Chatboty i asystenci AI zdolni do samonauki i adaptacji do indywidualnych potrzeb.</li>
+                <li><strong>Monitorowanie Systemów:</strong> Ciągły nadzór infrastruktury z automatyczną diagnozą i leczeniem problemów.</li>
+                <li><strong>Przetwarzanie Danych:</strong> Pipeline'y ETL, które inteligentnie zarządzają transformacją i transferem danych.</li>
+                <li><strong>Orchestracja Mikroserwisów:</strong> Inteligentne kierowanie requestów i balansowanie obciążenia.</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h3>Jak Zacząć</h3>
+            <p>Zacznij budować swój pierwszy organiczny system w kilka minut:</p>
+            <div class="code-block">
+# Instalacja
+npm install @dojo/framework
+
+# Stwórz projekt
+dojo create my-organism
+
+# Uruchom development server
+dojo serve
+
+# Deployuj do produkcji
+dojo build --prod
+            </div>
+            <p>Pełna dokumentacja dostępna na <a href="https://docs.dojo.dev" style="color: #667eea; text-decoration: none;">docs.dojo.dev</a></p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2026 DOJO Framework. Budujemy żywe organizmy cyfrowe.</p>
+    </footer>
+</body>
+</html>
