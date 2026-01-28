@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOJO Framework - Living Organism Builder</title>
+    <title>DOJO — Autonomous Agent Framework</title>
     <style>
         * {
             margin: 0;
@@ -12,312 +12,375 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #000;
+            background: #fff;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
         
         header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            sticky: top;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            grid-column: 1 / -1;
+            border-bottom: 1px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        h1 {
+            font-size: 72px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 0.9;
+            text-transform: uppercase;
         }
         
-        header h1 {
-            font-size: 1.8rem;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
+        h2 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
         
-        header p {
-            color: #666;
-            font-size: 0.95rem;
+        h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            margin-top: 10px;
+            font-weight: 400;
         }
         
         .hero {
-            text-align: center;
-            padding: 5rem 0;
-            color: #2c3e50;
-        }
-        
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            grid-column: 1 / -1;
+            border-bottom: 1px solid #000;
+            padding-bottom: 40px;
+            margin-bottom: 40px;
         }
         
         .hero p {
-            font-size: 1.3rem;
-            color: #555;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            line-height: 1.8;
+            font-size: 24px;
+            line-height: 1.4;
+            max-width: 800px;
         }
         
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        .section {
+            grid-column: span 4;
+            padding: 20px;
+            border: 1px solid #000;
         }
         
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        .section-full {
+            grid-column: 1 / -1;
+            padding: 40px;
+            border: 2px solid #000;
+            background: #f5f5f5;
         }
         
-        section {
-            background: white;
-            margin: 3rem 0;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        .code {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            background: #000;
+            color: #0f0;
+            padding: 20px;
+            overflow-x: auto;
+            margin: 20px 0;
         }
         
-        section h3 {
-            font-size: 2rem;
-            color: #2c3e50;
-            margin-bottom: 1.5rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 0.5rem;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .feature-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-            transition: transform 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature-card h4 {
-            color: #667eea;
-            margin-bottom: 0.8rem;
-            font-size: 1.2rem;
-        }
-        
-        .feature-card p {
-            color: #666;
-            line-height: 1.7;
-        }
-        
-        .philosophy {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .philosophy h3 {
-            border-bottom-color: white;
-            color: white;
-        }
-        
-        .philosophy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .philosophy-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .philosophy-item h4 {
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-        }
-        
-        .philosophy-item p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        
-        .use-cases {
-            background: white;
-        }
-        
-        .use-case-list {
+        ul {
             list-style: none;
-            margin-top: 2rem;
+            margin: 20px 0;
         }
         
-        .use-case-list li {
-            padding: 1rem;
-            margin: 0.8rem 0;
-            background: #f8f9fa;
-            border-left: 4px solid #764ba2;
-            border-radius: 4px;
+        li::before {
+            content: "—";
+            margin-right: 10px;
         }
         
-        .use-case-list strong {
-            color: #764ba2;
+        .cta {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 2px solid #000;
+            margin-top: 40px;
+        }
+        
+        .cta a {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 20px 60px;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background 0.2s;
+        }
+        
+        .cta a:hover {
+            background: #333;
         }
         
         footer {
+            grid-column: 1 / -1;
             text-align: center;
-            padding: 2rem;
-            color: #888;
-            margin-top: 3rem;
+            padding: 20px;
+            border-top: 1px solid #000;
+            margin-top: 40px;
+            font-size: 12px;
         }
         
-        .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            margin: 1.5rem 0;
-            line-height: 1.5;
+        /* Code Analyzer Section */
+        .analyzer {
+            grid-column: 1 / -1;
+            padding: 40px;
+            border: 3px solid #000;
+            background: #fff;
+            margin: 40px 0;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            padding: 15px;
+            border: 2px solid #000;
+            resize: vertical;
+        }
+        
+        button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            background: #333;
+        }
+        
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #000;
+            background: #f5f5f5;
+            display: none;
+        }
+        
+        .result.visible {
+            display: block;
+        }
+        
+        .metric {
+            display: inline-block;
+            margin: 10px 20px 10px 0;
+            font-weight: 700;
+        }
+        
+        .suggestions {
+            margin-top: 20px;
+        }
+        
+        .suggestions li {
+            margin: 10px 0;
         }
         
         @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            section {
-                padding: 2rem 1.5rem;
-            }
-            
-            section h3 {
-                font-size: 1.5rem;
-            }
-            
-            header h1 {
-                font-size: 1.3rem;
-            }
+            h1 { font-size: 48px; }
+            h2 { font-size: 32px; }
+            .section { grid-column: 1 / -1; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>DOJO Framework</h1>
-            <p>Living Organism Builder</p>
+    <div class="grid">
+        <header>
+            <h1>DOJO</h1>
+            <p class="subtitle">Autonomous Agent Framework</p>
+        </header>
+        
+        <div class="hero">
+            <p>
+                Self-organizing system of specialized agents (workers) that execute tasks autonomously. 
+                No orchestration layers. No prompt engineering. Pure biological efficiency.
+            </p>
         </div>
-    </header>
-    
-    <main class="container">
-        <section class="hero">
-            <h2>DOJO Framework</h2>
-            <p>Buduj autonomiczne agenty, self-healing systemy i inteligentne aplikacje bez pisania kodu.</p>
-            <a href="https://github.com/dojo-framework/dojo" class="cta-button">Dowiedz się więcej</a>
-        </section>
         
-        <section>
-            <h3>Co to DOJO?</h3>
-            <p>DOJO to nowoczesny framework do budowania żywych organizmów cyfrowych. Zamiast statycznych aplikacji, tworzysz systemy, które uczą się, adaptują i samonaprawiają.</p>
-            <p>DOJO opiera się na trzech filarach:</p>
-            <div class="features">
-                <div class="feature-card">
-                    <h4>Autonomiczne Agenty</h4>
-                    <p>Niezależne jednostki zdolne do podejmowania decyzji, wykonywania zadań i współpracy z innymi agentami.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Self-Healing</h4>
-                    <p>System automatycznie identyfikuje i naprawia błędy, utrzymując wysoką dostępność i niezawodność.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Budowanie Bez Kodu</h4>
-                    <p>Intuicyjny interfejs graficzny pozwala budować złożone logiki bez konieczności pisania kodu.</p>
+        <!-- CODE ANALYZER TOOL -->
+        <div class="analyzer">
+            <h2>Try It: Code Analyzer</h2>
+            <p style="margin-bottom: 20px;">Paste your Python code below. Get instant complexity metrics and suggestions.</p>
+            
+            <textarea id="codeInput" placeholder="def hello_world():&#10;    print('Hello, DOJO!')&#10;    return True"></textarea>
+            
+            <button id="analyzeBtn">Analyze Code</button>
+            
+            <div id="result" class="result">
+                <h3>Analysis Result</h3>
+                <div id="rating" style="font-size: 24px; margin: 20px 0;"></div>
+                <div id="metrics"></div>
+                <div class="suggestions">
+                    <h3>Suggestions</h3>
+                    <ul id="suggestionsList"></ul>
                 </div>
             </div>
-        </section>
+        </div>
         
-        <section class="philosophy">
-            <h3>Filozofia DOJO</h3>
-            <p>Framework opiera się na koncepcji organów odpowiedzialnych za różne aspekty systemu.</p>
-            <div class="philosophy-grid">
-                <div class="philosophy-item">
-                    <h4>Organy (Workers)</h4>
-                    <p>Niezależne jednostki wykonawcze. Każdy organ ma jasno określoną funkcję, może się autonomicznie wykonywać i współpracować z innymi.</p>
-                </div>
-                <div class="philosophy-item">
-                    <h4>Narzędzia (Tools)</h4>
-                    <p>Specjalizowane funkcje dostępne dla organów. Tools są wielokrotnie używalne i stanowią interfejs do zewnętrznych systemów.</p>
-                </div>
-                <div class="philosophy-item">
-                    <h4>Heartbeat</h4>
-                    <p>Pulsujący system, który budzi organy do życia. Heartbeat zarządza harmonogramem i zapewnia ciągłość działania systemu.</p>
-                </div>
-            </div>
-        </section>
-        
-        <section>
-            <h3>Przykłady Użycia</h3>
-            <p>DOJO sprawdza się w wielu scenariuszach:</p>
-            <ul class="use-case-list">
-                <li><strong>Automatyzacja Biznesu:</strong> Twórz przepływy pracy, które działają 24/7 bez interwencji człowieka.</li>
-                <li><strong>Analiza i Raportowanie:</strong> Autonomiczne agenty zbierają, przetwarzają i raportują dane w czasie rzeczywistym.</li>
-                <li><strong>Customer Support:</strong> Chatboty i asystenci AI zdolni do samonauki i adaptacji do indywidualnych potrzeb.</li>
-                <li><strong>Monitorowanie Systemów:</strong> Ciągły nadzór infrastruktury z automatyczną diagnozą i leczeniem problemów.</li>
-                <li><strong>Przetwarzanie Danych:</strong> Pipeline'y ETL, które inteligentnie zarządzają transformacją i transferem danych.</li>
-                <li><strong>Orchestracja Mikroserwisów:</strong> Inteligentne kierowanie requestów i balansowanie obciążenia.</li>
+        <div class="section">
+            <h3>Workers</h3>
+            <p>Specialized agents (WHO). Each worker is an organ with one purpose.</p>
+            <ul>
+                <li>mokuteki: goal setting</li>
+                <li>metsuke: access control</li>
+                <li>kensho: validation</li>
             </ul>
-        </section>
+        </div>
         
-        <section>
-            <h3>Jak Zacząć</h3>
-            <p>Zacznij budować swój pierwszy organiczny system w kilka minut:</p>
-            <div class="code-block">
-# Instalacja
-npm install @dojo/framework
+        <div class="section">
+            <h3>Tools</h3>
+            <p>Executable capabilities (HOW). Python scripts with def run().</p>
+            <ul>
+                <li>web_search</li>
+                <li>web_fetch</li>
+                <li>http_request</li>
+                <li>file_read/write</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h3>Schedule</h3>
+            <p>Automated execution (WHEN). Heartbeat wakes workers without Sensei.</p>
+            <ul>
+                <li>Cron-based rhythm</li>
+                <li>Independent cycles</li>
+                <li>No central control</li>
+            </ul>
+        </div>
+        
+        <div class="section-full">
+            <h2>Architecture</h2>
+            <div class="code">$ create_worker("site_builder", yaml_content)
+$ create_tool("deploy", "Publishes to GitHub Pages", code)
+$ schedule_worker("site_builder", "0 9 * * *", "build and deploy")
 
-# Stwórz projekt
-dojo create my-organism
-
-# Uruchom development server
-dojo serve
-
-# Deployuj do produkcji
-dojo build --prod
-            </div>
-            <p>Pełna dokumentacja dostępna na <a href="https://docs.dojo.dev" style="color: #667eea; text-decoration: none;">docs.dojo.dev</a></p>
-        </section>
-    </main>
+> Worker executes autonomously
+> Tool completes task
+> Result validated by kensho
+> System self-corrects</div>
+        </div>
+        
+        <div class="section">
+            <h3>Self-Sufficient</h3>
+            <p>Build any capability using Python stdlib. No external dependencies required.</p>
+        </div>
+        
+        <div class="section">
+            <h3>Fault-Tolerant</h3>
+            <p>Tools create missing resources. Workers validate results. System adapts.</p>
+        </div>
+        
+        <div class="section">
+            <h3>Measurable</h3>
+            <p>Success = artifact accessible from outside (HTTP 200). Not plans. Not code. Results.</p>
+        </div>
+        
+        <div class="cta">
+            <a href="https://github.com/dojo-framework/dojo">Start Building</a>
+        </div>
+        
+        <footer>
+            <p>DOJO Framework — Built by autonomous agents, for autonomous agents</p>
+        </footer>
+    </div>
     
-    <footer>
-        <p>&copy; 2026 DOJO Framework. Budujemy żywe organizmy cyfrowe.</p>
-    </footer>
+    <script>
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const codeInput = document.getElementById('codeInput');
+        const resultDiv = document.getElementById('result');
+        const ratingDiv = document.getElementById('rating');
+        const metricsDiv = document.getElementById('metrics');
+        const suggestionsList = document.getElementById('suggestionsList');
+        
+        analyzeBtn.addEventListener('click', async () => {
+            const code = codeInput.value.trim();
+            if (!code) {
+                alert('Please enter some code to analyze');
+                return;
+            }
+            
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = 'Analyzing...';
+            
+            try {
+                // TODO: Replace with actual endpoint URL when deployed
+                const response = await fetch('http://localhost:8080/api/analyze-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ code })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    // Display rating
+                    ratingDiv.textContent = `Complexity Rating: ${result.rating}`;
+                    ratingDiv.style.fontWeight = '700';
+                    
+                    // Display metrics
+                    const m = result.metrics;
+                    metricsDiv.innerHTML = `
+                        <span class="metric">Lines: ${m.lines}</span>
+                        <span class="metric">Functions: ${m.functions}</span>
+                        <span class="metric">Classes: ${m.classes}</span>
+                        <span class="metric">Imports: ${m.imports}</span>
+                        <span class="metric">Score: ${m.complexity_score}</span>
+                    `;
+                    
+                    // Display suggestions
+                    suggestionsList.innerHTML = result.suggestions
+                        .map(s => `<li>${s}</li>`)
+                        .join('');
+                    
+                    resultDiv.classList.add('visible');
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                alert('Failed to analyze code. Make sure the analyzer service is running.');
+                console.error(error);
+            } finally {
+                analyzeBtn.disabled = false;
+                analyzeBtn.textContent = 'Analyze Code';
+            }
+        });
+    </script>
 </body>
 </html>
