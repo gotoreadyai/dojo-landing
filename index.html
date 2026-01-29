@@ -1,386 +1,449 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOJO — Autonomous Agent Framework</title>
+    <title>DOJO - Organiczny System AI Agentów</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.5;
-            color: #000;
-            background: #fff;
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #141420;
+            --text-primary: #e0e0e8;
+            --text-secondary: #9494a8;
+            --accent-cyan: #00f0ff;
+            --accent-magenta: #ff00ff;
+            --accent-green: #00ff88;
+            --border-color: #2a2a40;
         }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 20px;
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 0 2rem;
         }
-        
+
+        /* Header */
         header {
-            grid-column: 1 / -1;
-            border-bottom: 1px solid #000;
-            padding-bottom: 20px;
-            margin-bottom: 40px;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
         }
-        
-        h1 {
-            font-size: 72px;
+
+        .logo {
+            font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: -2px;
-            line-height: 0.9;
+            color: var(--accent-cyan);
             text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
         }
-        
-        h2 {
-            font-size: 48px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        
-        h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        
-        .subtitle {
-            font-size: 18px;
-            margin-top: 10px;
-            font-weight: 400;
-        }
-        
+
+        /* Hero Section */
         .hero {
-            grid-column: 1 / -1;
-            border-bottom: 1px solid #000;
-            padding-bottom: 40px;
-            margin-bottom: 40px;
+            padding: 8rem 0 6rem;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .hero p {
-            font-size: 24px;
-            line-height: 1.4;
-            max-width: 800px;
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
         }
-        
-        .section {
-            grid-column: span 4;
-            padding: 20px;
-            border: 1px solid #000;
-        }
-        
-        .section-full {
-            grid-column: 1 / -1;
-            padding: 40px;
-            border: 2px solid #000;
-            background: #f5f5f5;
-        }
-        
-        .code {
-            font-family: "Courier New", Courier, monospace;
-            font-size: 14px;
-            background: #000;
-            color: #0f0;
-            padding: 20px;
-            overflow-x: auto;
-            margin: 20px 0;
-        }
-        
-        ul {
-            list-style: none;
-            margin: 20px 0;
-        }
-        
-        li::before {
-            content: "—";
-            margin-right: 10px;
-        }
-        
-        .cta {
-            grid-column: 1 / -1;
+
+        .hero-content {
             text-align: center;
-            padding: 60px 20px;
-            border-top: 2px solid #000;
-            margin-top: 40px;
+            position: relative;
+            z-index: 1;
         }
-        
-        .cta a {
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-magenta) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
             display: inline-block;
-            background: #000;
-            color: #fff;
-            padding: 20px 60px;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-magenta) 100%);
+            color: var(--bg-primary);
             text-decoration: none;
-            font-size: 24px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: background 0.2s;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 30px rgba(0, 240, 255, 0.4);
         }
-        
-        .cta a:hover {
-            background: #333;
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(0, 240, 255, 0.6);
         }
-        
-        footer {
-            grid-column: 1 / -1;
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
             text-align: center;
-            padding: 20px;
-            border-top: 1px solid #000;
-            margin-top: 40px;
-            font-size: 12px;
+            margin-bottom: 4rem;
+            color: var(--accent-cyan);
         }
-        
-        /* Code Analyzer Section */
-        .analyzer {
-            grid-column: 1 / -1;
-            padding: 40px;
-            border: 3px solid #000;
-            background: #fff;
-            margin: 40px 0;
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
-        
-        textarea {
-            width: 100%;
-            min-height: 200px;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 14px;
-            padding: 15px;
-            border: 2px solid #000;
-            resize: vertical;
+
+        .feature-card {
+            padding: 2rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
         }
-        
-        button {
-            background: #000;
-            color: #fff;
-            border: none;
-            padding: 15px 40px;
-            font-size: 18px;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 20px;
-            letter-spacing: 1px;
+
+        .feature-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
         }
-        
-        button:hover {
-            background: #333;
-        }
-        
-        button:disabled {
-            background: #999;
-            cursor: not-allowed;
-        }
-        
-        .result {
-            margin-top: 30px;
-            padding: 20px;
-            border: 2px solid #000;
-            background: #f5f5f5;
-            display: none;
-        }
-        
-        .result.visible {
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
             display: block;
         }
-        
-        .metric {
-            display: inline-block;
-            margin: 10px 20px 10px 0;
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 6rem 0;
+        }
+
+        .workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .workflow-step {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-magenta) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             font-weight: 700;
+            color: var(--bg-primary);
         }
-        
-        .suggestions {
-            margin-top: 20px;
+
+        .step-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-cyan);
         }
-        
-        .suggestions li {
-            margin: 10px 0;
+
+        .step-content .step-label {
+            font-size: 0.9rem;
+            color: var(--accent-magenta);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            display: block;
         }
-        
+
+        .step-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                box-shadow: 0 0 10px var(--accent-green);
+            }
+            50% {
+                opacity: 0.5;
+                box-shadow: 0 0 20px var(--accent-green);
+            }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            h1 { font-size: 48px; }
-            h2 { font-size: 32px; }
-            .section { grid-column: 1 / -1; }
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .workflow-step {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="grid">
-        <header>
-            <h1>DOJO</h1>
-            <p class="subtitle">Autonomous Agent Framework</p>
-        </header>
-        
-        <div class="hero">
-            <p>
-                Self-organizing system of specialized agents (workers) that execute tasks autonomously. 
-                No orchestration layers. No prompt engineering. Pure biological efficiency.
-            </p>
+    <header>
+        <div class="container">
+            <div class="logo">DOJO</div>
         </div>
-        
-        <!-- CODE ANALYZER TOOL -->
-        <div class="analyzer">
-            <h2>Try It: Code Analyzer</h2>
-            <p style="margin-bottom: 20px;">Paste your Python code below. Get instant complexity metrics and suggestions.</p>
-            
-            <textarea id="codeInput" placeholder="def hello_world():&#10;    print('Hello, DOJO!')&#10;    return True"></textarea>
-            
-            <button id="analyzeBtn">Analyze Code</button>
-            
-            <div id="result" class="result">
-                <h3>Analysis Result</h3>
-                <div id="rating" style="font-size: 24px; margin: 20px 0;"></div>
-                <div id="metrics"></div>
-                <div class="suggestions">
-                    <h3>Suggestions</h3>
-                    <ul id="suggestionsList"></ul>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Organiczny System<br>AI Agentów</h1>
+                <p class="hero-subtitle">
+                    Samowystarczalny ekosystem workerów, które budują, hostują i ewoluują artefakty dostępne z zewnątrz
+                </p>
+                <a href="#how-it-works" class="cta-button">Zobacz jak działa</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Cechy Systemu</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🧬</span>
+                    <h3 class="feature-title">Organiczna Architektura</h3>
+                    <p class="feature-description">
+                        System zbudowany jak organizm żywy - workerzy działają jako specjalizowane organy, każdy z własną funkcją i odpowiedzialnością. WHO definiuje tożsamość, HOW określa narzędzia, WHEN ustala rytm.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🚀</span>
+                    <h3 class="feature-title">Produkcja Artefaktów</h3>
+                    <p class="feature-description">
+                        Workerzy tworzą rzeczywiste, działające artefakty - strony www, API, endpointy HTTP. Każdy artefakt jest dostępny z zewnątrz i mierzalny przez status HTTP 200.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3 class="feature-title">Samowystarczalność</h3>
+                    <p class="feature-description">
+                        Zero zależności zewnętrznych. DOJO hostuje własne artefakty, zarządza własnymi workerami i ewoluuje na podstawie rzeczywistych wyników. Sukces mierzony dostępnością, nie obietnicami.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔄</span>
+                    <h3 class="feature-title">Ewolucja w Czasie</h3>
+                    <p class="feature-description">
+                        Harmonogramy cronowe sterują rytmem systemu. Workerzy działają autonomicznie, ulepszają swoje artefakty i adaptują się do zmieniających się wymagań.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🛠️</span>
+                    <h3 class="feature-title">Rozszerzalne Narzędzia</h3>
+                    <p class="feature-description">
+                        Własne tools Pythonowe rozszerzają możliwości systemu. Każdy worker ma dostęp do zestawu narzędzi - od operacji na plikach po zapytania HTTP i web scraping.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3 class="feature-title">Mierzalny Sukces</h3>
+                    <p class="feature-description">
+                        Każdy artefakt to konkretny endpoint. Działa albo nie działa. HTTP 200 to sukces. Brak odpowiedzi to porażka. Proste, weryfikowalne, realne.
+                    </p>
                 </div>
             </div>
         </div>
-        
-        <div class="section">
-            <h3>Workers</h3>
-            <p>Specialized agents (WHO). Each worker is an organ with one purpose.</p>
-            <ul>
-                <li>mokuteki: goal setting</li>
-                <li>metsuke: access control</li>
-                <li>kensho: validation</li>
-            </ul>
-        </div>
-        
-        <div class="section">
-            <h3>Tools</h3>
-            <p>Executable capabilities (HOW). Python scripts with def run().</p>
-            <ul>
-                <li>web_search</li>
-                <li>web_fetch</li>
-                <li>http_request</li>
-                <li>file_read/write</li>
-            </ul>
-        </div>
-        
-        <div class="section">
-            <h3>Schedule</h3>
-            <p>Automated execution (WHEN). Heartbeat wakes workers without Sensei.</p>
-            <ul>
-                <li>Cron-based rhythm</li>
-                <li>Independent cycles</li>
-                <li>No central control</li>
-            </ul>
-        </div>
-        
-        <div class="section-full">
-            <h2>Architecture</h2>
-            <div class="code">$ create_worker("site_builder", yaml_content)
-$ create_tool("deploy", "Publishes to GitHub Pages", code)
-$ schedule_worker("site_builder", "0 9 * * *", "build and deploy")
+    </section>
 
-> Worker executes autonomously
-> Tool completes task
-> Result validated by kensho
-> System self-corrects</div>
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Jak Działa DOJO</h2>
+            <div class="workflow">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <span class="step-label">WHO - Tożsamość</span>
+                        <h3>Definicja Workera</h3>
+                        <p>
+                            Każdy worker to agent AI z określoną rolą. Zdefiniowany w pliku YAML, posiada nazwę, model, kontekst i cel. To jego tożsamość - kim jest i co ma robić w ekosystemie.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <span class="step-label">HOW - Narzędzia</span>
+                        <h3>Wyposażenie w Tools</h3>
+                        <p>
+                            Worker otrzymuje zestaw narzędzi Pythonowych - funkcje do zapisu plików, wykonywania requestów HTTP, web scrapingu. To jego możliwości - jak może działać i co może zbudować.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <span class="step-label">WHEN - Harmonogram</span>
+                        <h3>Uruchomienie według Rytmu</h3>
+                        <p>
+                            Harmonogram cronowy określa kiedy worker działa. Co godzinę, codziennie, co tydzień - każdy ma swój rytm. System budzi workerów w odpowiednim czasie i zleca im zadania.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <span class="step-label">RESULT - Artefakt</span>
+                        <h3>Produkcja Dostępnych Zasobów</h3>
+                        <p>
+                            Worker buduje artefakt - stronę HTML, endpoint API, plik JSON. Zapisuje go do systemu plików. DOJO hostuje artefakt i udostępnia pod adresem HTTP. Sukces weryfikowany przez dostępność.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="section">
-            <h3>Self-Sufficient</h3>
-            <p>Build any capability using Python stdlib. No external dependencies required.</p>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Gotowy na Autonomiczny AI?</h2>
+            <p>
+                DOJO to nie framework - to żywy organizm. Zbuduj swoją instancję, zdefiniuj workerów i obserwuj jak system ewoluuje.
+            </p>
+            <a href="https://github.com/dadmor/dojo" class="cta-button">Rozpocznij</a>
         </div>
-        
-        <div class="section">
-            <h3>Fault-Tolerant</h3>
-            <p>Tools create missing resources. Workers validate results. System adapts.</p>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 DOJO - Organiczny System AI Agentów</p>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>System Operacyjny</span>
+            </div>
         </div>
-        
-        <div class="section">
-            <h3>Measurable</h3>
-            <p>Success = artifact accessible from outside (HTTP 200). Not plans. Not code. Results.</p>
-        </div>
-        
-        <div class="cta">
-            <a href="https://github.com/dojo-framework/dojo">Start Building</a>
-        </div>
-        
-        <footer>
-            <p>DOJO Framework — Built by autonomous agents, for autonomous agents</p>
-        </footer>
-    </div>
-    
-    <script>
-        const analyzeBtn = document.getElementById('analyzeBtn');
-        const codeInput = document.getElementById('codeInput');
-        const resultDiv = document.getElementById('result');
-        const ratingDiv = document.getElementById('rating');
-        const metricsDiv = document.getElementById('metrics');
-        const suggestionsList = document.getElementById('suggestionsList');
-        
-        analyzeBtn.addEventListener('click', async () => {
-            const code = codeInput.value.trim();
-            if (!code) {
-                alert('Please enter some code to analyze');
-                return;
-            }
-            
-            analyzeBtn.disabled = true;
-            analyzeBtn.textContent = 'Analyzing...';
-            
-            try {
-                // TODO: Replace with actual endpoint URL when deployed
-                const response = await fetch('http://localhost:8080/api/analyze-code', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ code })
-                });
-                
-                const result = await response.json();
-                
-                if (result.status === 'success') {
-                    // Display rating
-                    ratingDiv.textContent = `Complexity Rating: ${result.rating}`;
-                    ratingDiv.style.fontWeight = '700';
-                    
-                    // Display metrics
-                    const m = result.metrics;
-                    metricsDiv.innerHTML = `
-                        <span class="metric">Lines: ${m.lines}</span>
-                        <span class="metric">Functions: ${m.functions}</span>
-                        <span class="metric">Classes: ${m.classes}</span>
-                        <span class="metric">Imports: ${m.imports}</span>
-                        <span class="metric">Score: ${m.complexity_score}</span>
-                    `;
-                    
-                    // Display suggestions
-                    suggestionsList.innerHTML = result.suggestions
-                        .map(s => `<li>${s}</li>`)
-                        .join('');
-                    
-                    resultDiv.classList.add('visible');
-                } else {
-                    alert('Error: ' + result.message);
-                }
-            } catch (error) {
-                alert('Failed to analyze code. Make sure the analyzer service is running.');
-                console.error(error);
-            } finally {
-                analyzeBtn.disabled = false;
-                analyzeBtn.textContent = 'Analyze Code';
-            }
-        });
-    </script>
+    </footer>
 </body>
 </html>
